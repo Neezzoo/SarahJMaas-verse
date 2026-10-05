@@ -1,0 +1,5 @@
+Déposez ici les fan arts (jpg, png ou webp, idéalement moins de 500 Ko chacun).
+Puis renseignez leur chemin et le nom de l'artiste :
+- personnages : assets/js/data/personnages.js (champs image et credit)
+- accueil, sagas, liens : assets/js/data/fanarts.js
+Exemple : image: "assets/img/fanart/aelin.jpg", credit: "@pseudo_artiste"

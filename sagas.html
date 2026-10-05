@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sagas et ordre de lecture · Maasverse</title>
+  <meta name="description" content="Les trois sagas de Sarah J. Maas, tous les tomes en VO et VF, et l'ordre de lecture conseillé.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="sagas">
+  <main>
+    <header class="entete-page conteneur">
+      <p class="surtitre">LES LIVRES</p>
+      <h1>Les sagas &amp; l'ordre de lecture</h1>
+      <p class="intro" style="margin-inline:auto">Tous les tomes, leurs titres français, un pitch sans spoiler et, caché, le résumé complet. Cliquez sur un livre pour l'ouvrir.</p>
+    </header>
+    <section class="section">
+      <div class="conteneur">
+        <nav class="puces" style="justify-content:center;margin-bottom:40px" aria-label="Aller à">
+          <a class="puce" href="#tog">Throne of Glass</a><a class="puce" href="#acotar">ACOTAR</a><a class="puce" href="#cc">Crescent City</a><a class="puce" href="#ordre">Ordre de lecture</a>
+        </nav>
+        <div id="sagas"></div>
+      </div>
+    </section>
+    <section class="section" id="ordre" style="scroll-margin-top:80px">
+      <div class="conteneur grille grille-2">
+        <div>
+          <h2>Par où commencer ?</h2>
+          <p><strong>Ordre de publication</strong> : chaque saga dans l'ordre de sortie. C'est le plus simple pour une première lecture.</p>
+          <p><strong>Ordre conseillé pour profiter des liens</strong> (consensus des fans) :</p>
+          <ol class="ordre" id="ordreConseille"></ol>
+        </div>
+        <div>
+          <h2>À savoir</h2>
+          <p class="alerte"><strong>Throne of Glass</strong> se lit de façon totalement indépendante. En revanche, il faut avoir lu <strong>ACOTAR</strong> avant la fin de <strong>Crescent City</strong> (<em>House of Sky and Breath</em>), qui contient un crossover.</p>
+          <p class="alerte" style="margin-top:14px"><strong>Avertissement contenu</strong> : ACOTAR (dès le tome 2) et Crescent City sont des romans adultes (scènes sexuelles explicites, violence, abus, traumatismes). Throne of Glass commence en jeunesse et devient plus adulte.</p>
+          <p style="margin-top:14px">Les titres français suivent l'édition La Martinière. La toute première édition de TOG s'appelait « Keleana » (Celaena y était renommée Keleana).</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/data/livres.js"></script>
+  <script src="assets/js/data/personnages.js"></script>
+  <script src="assets/js/data/cartes.js"></script>
+  <script src="assets/js/data/glossaire.js"></script>
+  <script src="assets/js/data/fanarts.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/pages/sagas.js"></script>
+</body>
+</html>

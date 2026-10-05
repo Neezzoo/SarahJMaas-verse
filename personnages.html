@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Personnages · Maasverse</title>
+  <meta name="description" content="Tous les personnages principaux et secondaires des trois sagas de Sarah J. Maas.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="personnages">
+  <main>
+    <header class="entete-page conteneur">
+      <p class="surtitre">QUI EST QUI</p>
+      <h1>Les personnages</h1>
+      <p class="intro" style="margin-inline:auto">Personnages principaux et secondaires des trois sagas. Filtrez, cherchez, et cliquez sur une fiche pour voir ses liens.</p>
+    </header>
+    <section class="section" style="padding-top:20px">
+      <div class="conteneur">
+        <div class="barre-filtres">
+          <div class="groupe" role="group" aria-label="Saga">
+            <button class="puce" data-filtre="saga" data-valeur="" aria-pressed="true">Toutes</button>
+            <button class="puce" data-filtre="saga" data-saga="tog" data-valeur="tog" aria-pressed="false">TOG</button>
+            <button class="puce" data-filtre="saga" data-saga="acotar" data-valeur="acotar" aria-pressed="false">ACOTAR</button>
+            <button class="puce" data-filtre="saga" data-saga="cc" data-valeur="cc" aria-pressed="false">Crescent City</button>
+          </div>
+          <div class="groupe" role="group" aria-label="Rôle">
+            <button class="puce" data-filtre="role" data-valeur="" aria-pressed="true">Tous</button>
+            <button class="puce" data-filtre="role" data-valeur="principal" aria-pressed="false">Principaux</button>
+            <button class="puce" data-filtre="role" data-valeur="secondaire" aria-pressed="false">Secondaires</button>
+          </div>
+          <div class="groupe">
+            <label class="visuellement-cache" for="filtreFamille">Race</label>
+            <select class="champ" id="filtreFamille"><option value="">Toutes les races</option></select>
+            <label class="visuellement-cache" for="filtreTexte">Chercher un personnage</label>
+            <input class="champ" id="filtreTexte" type="search" placeholder="Chercher un nom, une cour…">
+          </div>
+          <span class="compte" id="compte"></span>
+        </div>
+        <div class="galerie" id="galerie"></div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="conteneur">
+        <h2>Les couples</h2>
+        <p class="intro">La rubrique préférée des fans. Les couples qui sont des révélations restent masqués.</p>
+        <div class="couples" id="couples"></div>
+      </div>
+    </section>
+    <dialog class="modale" id="modale"><div style="position:relative"><button class="fermer" id="fermerModale" aria-label="Fermer">×</button><div class="boite" id="fiche"></div></div></dialog>
+  </main>
+
+  <script src="assets/js/data/livres.js"></script>
+  <script src="assets/js/data/personnages.js"></script>
+  <script src="assets/js/data/cartes.js"></script>
+  <script src="assets/js/data/glossaire.js"></script>
+  <script src="assets/js/data/fanarts.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/pages/personnages.js"></script>
+</body>
+</html>

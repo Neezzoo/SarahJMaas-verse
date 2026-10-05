@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glossaire · Maasverse</title>
+  <meta name="description" content="Races, magie, dieux, objets et vocabulaire du Maasverse.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="glossaire">
+  <main>
+    <header class="entete-page conteneur">
+      <p class="surtitre">LEXIQUE</p>
+      <h1>Le glossaire</h1>
+      <p class="intro" style="margin-inline:auto">Races, magie, dieux, objets et vocabulaire, avec leur nom anglais quand il sert.</p>
+    </header>
+    <section class="section" style="padding-top:20px">
+      <div class="conteneur">
+        <div class="barre-filtres">
+          <div class="groupe" role="group" aria-label="Saga">
+            <button class="puce" data-filtre="saga" data-valeur="" aria-pressed="true">Toutes</button>
+            <button class="puce" data-filtre="saga" data-saga="tog" data-valeur="tog" aria-pressed="false">TOG</button>
+            <button class="puce" data-filtre="saga" data-saga="acotar" data-valeur="acotar" aria-pressed="false">ACOTAR</button>
+            <button class="puce" data-filtre="saga" data-saga="cc" data-valeur="cc" aria-pressed="false">Crescent City</button>
+            <button class="puce" data-filtre="saga" data-valeur="multi" aria-pressed="false">Communs</button>
+          </div>
+          <div class="groupe">
+            <label class="visuellement-cache" for="filtreCategorie">Catégorie</label>
+            <select class="champ" id="filtreCategorie"><option value="">Toutes les catégories</option></select>
+            <label class="visuellement-cache" for="filtreTexte">Chercher un terme</label>
+            <input class="champ" id="filtreTexte" type="search" placeholder="Chercher un terme…">
+          </div>
+          <span class="compte" id="compte"></span>
+        </div>
+        <div class="glossaire" id="glossaire"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/data/livres.js"></script>
+  <script src="assets/js/data/personnages.js"></script>
+  <script src="assets/js/data/cartes.js"></script>
+  <script src="assets/js/data/glossaire.js"></script>
+  <script src="assets/js/data/fanarts.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/pages/glossaire.js"></script>
+</body>
+</html>
