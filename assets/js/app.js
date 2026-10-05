@@ -7,17 +7,27 @@
 
   const M = (window.MAAS = window.MAAS || {});
 
-  const PAGES = [
-    { id: "accueil", href: "index.html", titre: "Accueil" },
-    { id: "sagas", href: "sagas.html", titre: "Sagas" },
-    { id: "cartes", href: "cartes.html", titre: "Cartes" },
-    { id: "personnages", href: "personnages.html", titre: "Personnages" },
-    { id: "liens", href: "liens.html", titre: "Les liens" },
-    { id: "chronologie", href: "chronologie.html", titre: "Chronologie" },
-    { id: "quiz", href: "quiz.html", titre: "Quiz" },
-    { id: "glossaire", href: "glossaire.html", titre: "Glossaire" },
-    { id: "actus", href: "actus.html", titre: "Actus" },
+  /* Menu regroupé en rubriques. Pour ajouter une page : l'ajouter dans la bonne rubrique. */
+  const RUBRIQUES = [
+    { titre: "Les livres", pages: [
+      { id: "sagas", href: "sagas.html", titre: "Sagas & ordre de lecture", desc: "Tous les tomes, VO et VF, par où commencer" },
+      { id: "chronologie", href: "chronologie.html", titre: "Chronologie", desc: "Les parutions et l'histoire des mondes" },
+      { id: "actus", href: "actus.html", titre: "Actualités", desc: "Valkyrie Cycle, Crescent City 4, adaptations" },
+    ] },
+    { titre: "L'univers", pages: [
+      { id: "cartes", href: "cartes.html", titre: "Cartes", desc: "Erilea, Prythian, Midgard, Lunathion" },
+      { id: "personnages", href: "personnages.html", titre: "Personnages", desc: "Fiches, relations et couples" },
+      { id: "liens", href: "liens.html", titre: "Les liens entre les sagas", desc: "Crossovers, échos et théories" },
+      { id: "glossaire", href: "glossaire.html", titre: "Glossaire", desc: "Races, magie, dieux et objets" },
+    ] },
+    { titre: "Jouer", pages: [
+      { id: "quiz", href: "quiz.html", titre: "Quiz", desc: "Testez vos connaissances" },
+    ] },
   ];
+  const PAGES = [{ id: "accueil", href: "index.html", titre: "Accueil" }].concat(
+    RUBRIQUES.reduce(function (t, r) { return t.concat(r.pages.map(function (p) { return Object.assign({ rubrique: r.titre }, p); })); }, []));
+  M.PAGES = PAGES;
+  M.RUBRIQUES = RUBRIQUES;
 
   M.SAGAS = {
     tog: { court: "TOG", nom: "Throne of Glass", vf: "Keleana / Le Trône de Cristal", monde: "Erilea" },
@@ -77,39 +87,79 @@
   /* ---------- En-tête et pied de page ---------- */
   function construireEntete() {
     const page = document.body.dataset.page;
-    const liens = PAGES.map(function (p) {
-      return '<a href="' + p.href + '"' + (p.id === page ? ' aria-current="page"' : "") + ">" + p.titre + "</a>";
+    const courant = function (p) { return p.id === page ? ' aria-current="page"' : ""; };
+    const nav = RUBRIQUES.map(function (r, i) {
+      const actif = r.pages.some(function (p) { return p.id === page; });
+      if (r.pages.length === 1) {
+        const p = r.pages[0];
+        return '<a class="nav-lien' + (actif ? " actif" : "") + '" href="' + p.href + '"' + courant(p) + ">" + p.titre + "</a>";
+      }
+      return '<div class="nav-groupe">' +
+        '<button class="nav-lien' + (actif ? " actif" : "") + '" aria-expanded="false" aria-controls="sousmenu-' + i + '">' + r.titre +
+        ' <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>' +
+        '<div class="sous-menu" id="sousmenu-' + i + '"><p class="sous-titre">' + r.titre + "</p>" + r.pages.map(function (p) {
+          return '<a href="' + p.href + '"' + courant(p) + "><strong>" + p.titre + "</strong><span>" + p.desc + "</span></a>";
+        }).join("") + "</div></div>";
     }).join("");
+
     const entete = document.createElement("header");
     entete.className = "entete";
     entete.innerHTML =
       '<div class="conteneur">' +
       '<a class="logo" href="index.html">' + ICONE_CROISSANT + '<span class="texte-logo">Maasverse</span></a>' +
-      '<button class="btn-menu" aria-label="Menu" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>' +
-      '<nav class="nav" aria-label="Navigation principale">' + liens + "</nav>" +
+      '<nav class="nav" aria-label="Navigation principale">' + nav + "</nav>" +
       '<div class="outils">' +
       '<div class="recherche"><label class="visuellement-cache" for="rechercheGlobale">Rechercher</label>' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>' +
       '<input id="rechercheGlobale" type="search" placeholder="Rechercher…" autocomplete="off">' +
       '<div class="resultats" role="listbox"></div></div>' +
-      '<button class="interrupteur" id="toutReveler" aria-pressed="false" title="Afficher ou masquer tous les spoilers">⚠ <span class="texte-long">Spoilers :&nbsp;</span><span class="etat">masqués</span></button>' +
+      '<button class="interrupteur" id="toutReveler" aria-pressed="false" title="Afficher ou masquer tous les spoilers"><span aria-hidden="true">◐</span> <span class="texte-long">Spoilers&nbsp;</span><span class="etat">masqués</span></button>' +
+      '<button class="btn-menu" aria-label="Menu" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>' +
       "</div></div>";
     document.body.prepend(entete);
 
     const btnMenu = entete.querySelector(".btn-menu");
-    const nav = entete.querySelector(".nav");
+    const navEl = entete.querySelector(".nav");
     btnMenu.addEventListener("click", function () {
-      const ouvert = nav.classList.toggle("ouvert");
+      const ouvert = navEl.classList.toggle("ouvert");
       btnMenu.setAttribute("aria-expanded", ouvert);
     });
+    // sous-menus : ouverture au clic (et au survol sur ordinateur, via CSS)
+    entete.querySelectorAll(".nav-groupe > button").forEach(function (b) {
+      b.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const ouvert = b.getAttribute("aria-expanded") !== "true";
+        entete.querySelectorAll(".nav-groupe > button").forEach(function (x) { x.setAttribute("aria-expanded", "false"); });
+        b.setAttribute("aria-expanded", ouvert);
+      });
+    });
+    document.addEventListener("click", function () {
+      entete.querySelectorAll(".nav-groupe > button").forEach(function (x) { x.setAttribute("aria-expanded", "false"); });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") entete.querySelectorAll(".nav-groupe > button").forEach(function (x) { x.setAttribute("aria-expanded", "false"); });
+    });
+
+    // fil d'Ariane au-dessus du titre de la page
+    const pageInfo = PAGES.filter(function (p) { return p.id === page; })[0];
+    const surtitre = document.querySelector(".entete-page .surtitre");
+    if (surtitre && pageInfo && pageInfo.rubrique) {
+      surtitre.innerHTML = '<a href="index.html">Accueil</a> <span aria-hidden="true">✦</span> ' + pageInfo.rubrique;
+    }
 
     const pied = document.createElement("footer");
     pied.className = "pied";
     pied.innerHTML =
-      '<div class="conteneur"><p>Site de fan non officiel, sans but commercial, consacré aux sagas de Sarah J. Maas. ' +
-      "Les univers, personnages et titres appartiennent à l'autrice et à ses éditeurs (Bloomsbury, La Martinière). " +
-      "Les cartes sont des créations originales stylisées ; les fan arts sont publiés avec l'accord de leurs artistes.</p>" +
-      "<p>Fait avec amour pour les fans du Maasverse ✦</p></div>";
+      '<div class="conteneur"><div class="pied-grille">' +
+      '<div class="pied-marque"><a class="logo" href="index.html">' + ICONE_CROISSANT + "<span>Maasverse</span></a>" +
+      "<p>Le guide francophone des trois sagas de Sarah J. Maas et de ce qui les relie.</p></div>" +
+      RUBRIQUES.map(function (r) {
+        return '<div><p class="pied-titre">' + r.titre + "</p><ul>" + r.pages.map(function (p) {
+          return '<li><a href="' + p.href + '">' + p.titre + "</a></li>";
+        }).join("") + "</ul></div>";
+      }).join("") +
+      '</div><p class="pied-mentions">Site de fan non officiel, sans but commercial. Les univers, personnages et titres appartiennent à Sarah J. Maas et à ses éditeurs (Bloomsbury, La Martinière). ' +
+      "Les cartes sont des créations originales stylisées ; les fan arts sont publiés avec l'accord de leurs artistes.</p></div>";
     document.body.appendChild(pied);
   }
 
