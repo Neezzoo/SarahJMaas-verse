@@ -532,7 +532,11 @@ select.champ { min-width: 0; }
   background: linear-gradient(180deg, rgba(19,20,31,.6), var(--nuit)); }
 .pied-grille { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
 .pied-marque p { max-width: 300px; margin-top: 10px; }
-.pied-titre { font-family: var(--f-titre); letter-spacing: .14em; text-transform: uppercase; font-size: .78rem; color: var(--or); margin-bottom: 10px; }
+.pied-titre { font-family: var(--f-titre); letter-spacing: .14em; text-transform: uppercase; font-size: .78rem; color: var(--or); margin-bottom: 10px;
+  display: block; width: 100%; text-align: left; background: none; border: 0; padding: 0; cursor: default; }
+.pied-titre .chevron { display: none; }
+/* boutons réservés au téléphone */
+.btn-recherche, .nav-accueil, .points-portails { display: none; }
 .pied ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .pied ul a { color: var(--texte-doux); text-decoration: none; }
 .pied ul a:hover { color: var(--or-pale); }
@@ -917,3 +921,144 @@ body.spoilers-reveles .rappel .spoiler { max-height: none; }
 .credit-banniere { position: absolute; right: 16px; bottom: 8px; z-index: 1; margin: 0; font-family: var(--f-ui); font-size: .66rem; color: rgba(255,255,255,.55); }
 .portail-en-cours .portail.choisi .credit-illu { opacity: 0; }
 .passage-paysage { position: absolute; inset: 0; opacity: 0; }
+
+/* ==========================================================
+   Version téléphone — mise en page resserrée et rangée.
+   Rien ici ne s'applique au-delà de 760 px : l'affichage
+   sur ordinateur reste inchangé.
+   ========================================================== */
+@media (max-width: 760px) {
+  body { font-size: 1.1rem; }
+  .section { padding: 40px 0; }
+  .section + .section { padding-top: 10px; }
+  .titre-section { margin-bottom: 22px; }
+  .intro { font-size: 1.15rem; }
+
+  /* --- Barre du haut : logo, recherche repliée, spoilers, menu --- */
+  .entete .conteneur { gap: 8px; min-height: 58px; }
+  .logo svg { width: 24px; height: 24px; }
+  .btn-recherche {
+    display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 10px;
+    border: 1px solid var(--bord); background: var(--surface); color: var(--texte); cursor: pointer;
+  }
+  .btn-recherche svg { width: 18px; height: 18px; }
+  .pied-titre .chevron { display: block; }
+  .recherche { position: static; }
+  .recherche > svg, .recherche input, .recherche .resultats { display: none; }
+  body.recherche-ouverte .recherche {
+    position: absolute; left: 12px; right: 12px; top: calc(100% + 8px); z-index: 70;
+  }
+  body.recherche-ouverte .recherche > svg { display: block; }
+  body.recherche-ouverte .recherche input,
+  body.recherche-ouverte .recherche input:focus { display: block; width: 100%; }
+  body.recherche-ouverte .recherche .resultats.ouvert { display: block; left: 0; right: 0; max-height: 60vh; overflow: auto; }
+  body.recherche-ouverte .btn-recherche { border-color: var(--or); color: var(--or); }
+  .interrupteur { padding: 9px 12px; }
+
+  /* --- Menu : une ligne par univers, qui se déplie --- */
+  .nav { padding: 6px 12px 14px; }
+  .nav-accueil { display: block; }
+  .nav-groupe { border-bottom: 1px solid rgba(231,197,107,.12); }
+  .nav-groupe > button {
+    display: flex; width: 100%; justify-content: space-between; align-items: center;
+    padding: 14px 12px; font-size: 1rem;
+  }
+  .nav-groupe > button[aria-expanded="true"] { color: var(--or); }
+  .sous-titre { display: none; }
+  .nav-groupe > .sous-menu { display: none; padding: 0 0 10px; }
+  .nav-groupe > button[aria-expanded="true"] + .sous-menu { display: block; }
+  .sous-menu a { padding: 9px 12px 9px 24px; }
+  .sous-menu a strong { font-size: .92rem; }
+  .sous-menu a span { display: none; }
+
+  /* --- Accueil : les trois portails se font glisser --- */
+  .portails-une { min-height: 0; padding: 26px 0 30px; }
+  .titre-portails h1 { font-size: clamp(1.9rem, 9vw, 2.6rem); }
+  .titre-portails .intro { font-size: 1.08rem; margin-bottom: 22px; }
+  .portails {
+    display: flex; grid-template-columns: none; justify-content: flex-start; width: 100%; gap: 14px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 6px calc((100% - min(76vw, 290px)) / 2) 8px; scrollbar-width: none;
+  }
+  .portails::-webkit-scrollbar { display: none; }
+  .portail { flex: 0 0 min(76vw, 290px); scroll-snap-align: center; }
+  .arche { aspect-ratio: 3 / 4; }
+  .texte-portail { margin-top: 18px; }
+  .texte-portail strong { font-size: 1.15rem; }
+  .texte-portail .devise { font-size: 1rem; max-width: 250px; }
+  .credit-illu { display: none; }
+  .franchir { margin-top: 10px; padding: 7px 16px; }
+  .points-portails { display: flex; justify-content: center; gap: 8px; margin-top: 22px; }
+  .points-portails button {
+    width: 8px; height: 8px; padding: 0; border-radius: 50%; border: 0; cursor: pointer;
+    background: rgba(231,197,107,.3);
+  }
+  .points-portails button[aria-current="true"] { background: var(--or); width: 22px; border-radius: 4px; }
+  .vers-multivers { margin-top: 26px; }
+  .multivers { padding-top: 40px; }
+  .multivers-carte { grid-template-columns: 1fr; gap: 16px; }
+
+  /* --- Bannière d'un univers --- */
+  .banniere { min-height: 58vh; }
+  .banniere-texte { flex: 1; width: auto; margin-inline: 0; padding: 100px 16px 20px; }
+  .banniere h1 { font-size: clamp(1.9rem, 9vw, 2.8rem); }
+  .banniere .devise { font-size: .95rem; }
+  .banniere .pitch { font-size: 1.05rem; line-height: 1.5; }
+  .credit-banniere { left: 0; right: 0; bottom: 6px; text-align: center; }
+
+  /* --- Rubriques de l'univers : une grille, rien n'est coupé --- */
+  .sous-nav { top: 58px; }
+  .sous-nav .conteneur { width: min(100% - 20px, var(--largeur)); }
+  .sous-nav-liste {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; overflow: visible; padding: 10px 0;
+  }
+  .sous-nav a {
+    text-align: center; padding: 9px 4px; font-size: .78rem; letter-spacing: .02em;
+    border: 1px solid var(--bord); border-radius: 999px;
+  }
+  .sous-nav a[aria-selected="true"] { background: var(--c); border-color: var(--c); color: var(--nuit); }
+  .panneaux { padding-top: 22px; }
+
+  /* --- Livres --- */
+  .etageres { gap: 8px; padding-bottom: 12px; }
+  .livre { width: 148px; min-height: 206px; padding: 13px 11px; }
+  .livre .titre { font-size: .92rem; }
+  .quatrieme { grid-template-columns: 1fr; padding: 20px 16px; gap: 14px; }
+  .quatrieme-couv { display: none; }
+  .quatrieme h2 { font-size: 1.5rem; }
+  .accroche { font-size: 1rem; }
+  .texte-quatrieme p { font-size: 1.08rem; line-height: 1.55; }
+  .texte-quatrieme p:first-child::first-letter { font-size: 2.6em; padding-right: 8px; }
+  .univers-bas { margin-top: 26px; }
+
+  /* --- Personnages --- */
+  .barre-filtres { gap: 10px; }
+  .barre-filtres .groupe { width: 100%; }
+  .barre-filtres .champ { flex: 1; }
+  .galerie { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .perso .nom { font-size: .92rem; }
+  .perso .sous { font-size: .7rem; }
+  .modale .contenu { padding: 20px 18px 26px; }
+  .modale .boite > .fanart { aspect-ratio: 16/10; min-height: 0; }
+  .couples { grid-template-columns: 1fr; }
+
+  /* --- Cartes --- */
+  .cadre-carte { aspect-ratio: 3 / 4; }
+  .commandes button { width: 42px; height: 42px; }
+  .onglets button { padding: 9px 16px; font-size: .9rem; }
+
+  /* --- Pied de page : chaque rubrique se déplie --- */
+  .pied-grille { grid-template-columns: 1fr; gap: 0; }
+  .pied-marque { margin-bottom: 18px; }
+  .pied-groupe { border-top: 1px solid rgba(231,197,107,.12); }
+  .pied-titre {
+    display: flex; width: 100%; justify-content: space-between; align-items: center;
+    background: none; border: 0; cursor: pointer; padding: 14px 2px; margin: 0; color: var(--or-pale);
+  }
+  .pied-titre .chevron { transition: transform .2s; }
+  .pied-titre[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+  .pied-groupe ul { display: none; padding-bottom: 12px; }
+  .pied-groupe.ouvert ul { display: block; }
+  .pied-mentions { margin-top: 22px; }
+  span.spoiler { display: inline-block; }
+}

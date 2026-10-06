@@ -16,6 +16,38 @@ document.addEventListener("DOMContentLoaded", function () {
     if (c) c.textContent = M.creditIllustration(p.dataset.univers);
   });
 
+  /* Sur téléphone, les portails se font glisser : de petits points indiquent où l'on est. */
+  (function pointsPortails() {
+    const piste = document.querySelector(".portails");
+    const portails = Array.prototype.slice.call(document.querySelectorAll(".portail"));
+    if (!piste || !portails.length) return;
+    const points = document.createElement("div");
+    points.className = "points-portails";
+    points.innerHTML = portails.map(function (p, i) {
+      return '<button type="button" aria-label="Voir ' + p.querySelector(".monde").textContent + '" data-i="' + i + '"' + (i ? "" : ' aria-current="true"') + "></button>";
+    }).join("");
+    piste.insertAdjacentElement("afterend", points);
+    points.addEventListener("click", function (e) {
+      const b = e.target.closest("button");
+      if (b) portails[+b.dataset.i].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    });
+    let attente = null;
+    piste.addEventListener("scroll", function () {
+      clearTimeout(attente);
+      attente = setTimeout(function () {
+        const milieu = piste.scrollLeft + piste.clientWidth / 2;
+        let proche = 0, ecart = Infinity;
+        portails.forEach(function (p, i) {
+          const d = Math.abs(p.offsetLeft + p.offsetWidth / 2 - milieu);
+          if (d < ecart) { ecart = d; proche = i; }
+        });
+        points.querySelectorAll("button").forEach(function (b, i) {
+          if (i === proche) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current");
+        });
+      }, 80);
+    }, { passive: true });
+  })();
+
   function memoriser(cle) { try { sessionStorage.setItem("maasverse-portail", cle); } catch (e) { /* stockage indisponible */ } }
 
   document.querySelectorAll(".portail").forEach(function (portail) {

@@ -115,12 +115,14 @@
     entete.innerHTML =
       '<div class="conteneur">' +
       '<a class="logo" href="index.html">' + ICONE_CROISSANT + '<span class="texte-logo">Maasverse</span></a>' +
-      '<nav class="nav" aria-label="Navigation principale">' + nav + "</nav>" +
+      '<nav class="nav" aria-label="Navigation principale">' +
+      '<a class="nav-lien nav-accueil" href="index.html"' + (page === "accueil" ? ' aria-current="page"' : "") + ">Accueil</a>" + nav + "</nav>" +
       '<div class="outils">' +
       '<div class="recherche"><label class="visuellement-cache" for="rechercheGlobale">Rechercher</label>' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>' +
       '<input id="rechercheGlobale" type="search" placeholder="Rechercher…" autocomplete="off">' +
       '<div class="resultats" role="listbox"></div></div>' +
+      '<button class="btn-recherche" aria-label="Rechercher" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>' +
       '<button class="interrupteur" id="toutReveler" aria-pressed="false" title="Afficher ou masquer tous les spoilers"><span aria-hidden="true">◐</span> <span class="texte-long">Spoilers&nbsp;</span><span class="etat">masqués</span></button>' +
       '<button class="btn-menu" aria-label="Menu" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>' +
       "</div></div>";
@@ -162,7 +164,8 @@
       '<div class="pied-marque"><a class="logo" href="index.html">' + ICONE_CROISSANT + "<span>Maasverse</span></a>" +
       "<p>Le guide francophone des trois sagas de Sarah J. Maas et de ce qui les relie.</p></div>" +
       RUBRIQUES.map(function (r) {
-        return '<div><p class="pied-titre">' + r.titre + "</p><ul>" + (r.sections || r.pages).map(function (p) {
+        return '<div class="pied-groupe"><button type="button" class="pied-titre">' + r.titre +
+          ' <svg class="chevron" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><ul>' + (r.sections || r.pages).map(function (p) {
           return '<li><a href="' + p.href + '">' + p.titre + "</a></li>";
         }).join("") + "</ul></div>";
       }).join("") +
@@ -288,8 +291,52 @@
     });
   }
 
+  /* ---------- Comportements propres au téléphone ---------- */
+  const TELEPHONE = window.matchMedia("(max-width: 760px)");
+
+  function initRechercheMobile() {
+    const btn = document.querySelector(".btn-recherche");
+    const champ = document.getElementById("rechercheGlobale");
+    if (!btn || !champ) return;
+    function fermer() {
+      document.body.classList.remove("recherche-ouverte");
+      btn.setAttribute("aria-expanded", "false");
+    }
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      const ouvert = !document.body.classList.contains("recherche-ouverte");
+      document.body.classList.toggle("recherche-ouverte", ouvert);
+      btn.setAttribute("aria-expanded", ouvert);
+      if (ouvert) champ.focus(); else champ.blur();
+    });
+    champ.addEventListener("keydown", function (e) { if (e.key === "Escape") fermer(); });
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest(".recherche") && !e.target.closest(".btn-recherche")) fermer();
+    });
+    TELEPHONE.addEventListener("change", fermer);
+  }
+
+  function initPiedAccordeon() {
+    document.querySelectorAll(".pied-groupe").forEach(function (g) {
+      const b = g.querySelector(".pied-titre");
+      if (TELEPHONE.matches) b.setAttribute("aria-expanded", g.classList.contains("ouvert") ? "true" : "false");
+      else { b.removeAttribute("aria-expanded"); g.classList.remove("ouvert"); }
+      if (b.dataset.pret) return;
+      b.dataset.pret = "1";
+      b.addEventListener("click", function () {
+        if (!TELEPHONE.matches) return;
+        const ouvert = !g.classList.contains("ouvert");
+        g.classList.toggle("ouvert", ouvert);
+        b.setAttribute("aria-expanded", ouvert ? "true" : "false");
+      });
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     construireEntete();
+    initRechercheMobile();
+    initPiedAccordeon();
+    TELEPHONE.addEventListener("change", initPiedAccordeon);
     remplirFanarts();
     initSpoilers();
     initRecherche();
