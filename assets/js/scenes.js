@@ -253,12 +253,12 @@
   /* Illustrations choisies par la fan : elles remplacent les dessins quand elles sont renseignées.
      cadrage : la partie de l'image à garder visible quand elle est recadrée. */
   const ILLUSTRATIONS = {
-    tog: { image: "assets/img/portails/tog.jpg?v=5", credit: "Dream World Dweller", cadrage: "50% 42%",
-      paysage: "assets/img/portails/tog-paysage.jpg?v=5", creditPaysage: "", cadragePaysage: "50% 85%" },
-    acotar: { image: "assets/img/portails/acotar.jpg?v=5", credit: "", cadrage: "55% 42%",
-      paysage: "assets/img/portails/acotar-paysage.jpg?v=5", creditPaysage: "", cadragePaysage: "50% 40%" },
-    cc: { image: "assets/img/portails/cc.jpg?v=5", credit: "", cadrage: "52% 55%",
-      paysage: "assets/img/portails/cc-paysage.jpg?v=5", creditPaysage: "", cadragePaysage: "50% 50%" },
+    tog: { image: "assets/img/portails/tog.jpg?v=6", credit: "Dream World Dweller", cadrage: "50% 42%",
+      paysage: "assets/img/portails/tog-paysage.jpg?v=6", creditPaysage: "", cadragePaysage: "45% 62%" },
+    acotar: { image: "assets/img/portails/acotar.jpg?v=6", credit: "", cadrage: "55% 42%",
+      paysage: "assets/img/portails/acotar-paysage.jpg?v=6", creditPaysage: "", cadragePaysage: "50% 40%" },
+    cc: { image: "assets/img/portails/cc.jpg?v=6", credit: "", cadrage: "52% 55%",
+      paysage: "assets/img/portails/cc-paysage.jpg?v=6", creditPaysage: "", cadragePaysage: "50% 50%" },
   };
   M.ILLUSTRATIONS = ILLUSTRATIONS;
   // format : "portail" (vertical, accueil) ou "paysage" (bannière dans l'univers)
