@@ -11,6 +11,11 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("nbPersos") && (document.getElementById("nbPersos").textContent = M.personnages.length);
   if ((M.fanarts.accueil || {}).image) document.getElementById("sectionFanart").hidden = false;
 
+  document.querySelectorAll(".portail").forEach(function (p) {
+    const c = p.querySelector("[data-credit]");
+    if (c) c.textContent = M.creditIllustration(p.dataset.univers);
+  });
+
   function memoriser(cle) { try { sessionStorage.setItem("maasverse-portail", cle); } catch (e) { /* stockage indisponible */ } }
 
   document.querySelectorAll(".portail").forEach(function (portail) {

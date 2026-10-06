@@ -911,3 +911,8 @@ select.champ { min-width: 0; }
 }
 .rappel .spoiler:not(.revele) { max-height: 130px; overflow: hidden; }
 body.spoilers-reveles .rappel .spoiler { max-height: none; }
+/* Illustrations des portails */
+.scene-image { object-fit: cover; }
+.credit-illu { font-family: var(--f-ui); font-size: .64rem; letter-spacing: .04em; color: var(--texte-faible); margin-top: 8px; }
+.credit-banniere { position: absolute; right: 16px; bottom: 8px; z-index: 1; margin: 0; font-family: var(--f-ui); font-size: .66rem; color: rgba(255,255,255,.55); }
+.portail-en-cours .portail.choisi .credit-illu { opacity: 0; }

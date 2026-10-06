@@ -250,7 +250,24 @@
 
   const SCENES = { tog: sceneTog, acotar: sceneAcotar, cc: sceneCc };
   const cache = {};
+  /* Illustrations choisies par la fan : elles remplacent les dessins quand elles sont renseignées.
+     cadrage : la partie de l'image à garder visible quand elle est recadrée. */
+  const ILLUSTRATIONS = {
+    tog: { image: "assets/img/portails/tog.jpg", credit: "Dream World Dweller", cadrage: "50% 42%" },
+    acotar: { image: "assets/img/portails/acotar.jpg", credit: "", cadrage: "50% 45%" },
+    cc: { image: "assets/img/portails/cc.jpg", credit: "", cadrage: "52% 55%" },
+  };
+  M.ILLUSTRATIONS = ILLUSTRATIONS;
+  M.creditIllustration = function (cle) {
+    const il = ILLUSTRATIONS[cle];
+    if (!il || !il.image) return "";
+    return "Illustration : " + (il.credit || "artiste à créditer (Pinterest)");
+  };
   M.scene = function (cle, classe) {
+    const il = ILLUSTRATIONS[cle];
+    if (il && il.image) {
+      return '<img class="scene scene-image scene-' + cle + " " + (classe || "") + '" src="' + il.image + '" alt="" style="object-position:' + il.cadrage + '" decoding="async">';
+    }
     if (!cache[cle]) cache[cle] = SCENES[cle]();
     return '<svg class="scene scene-' + cle + " " + (classe || "") + '" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">' + cache[cle] + "</svg>";
   };
