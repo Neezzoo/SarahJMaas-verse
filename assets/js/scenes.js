@@ -253,20 +253,27 @@
   /* Illustrations choisies par la fan : elles remplacent les dessins quand elles sont renseignées.
      cadrage : la partie de l'image à garder visible quand elle est recadrée. */
   const ILLUSTRATIONS = {
-    tog: { image: "assets/img/portails/tog.jpg?v=4", credit: "Dream World Dweller", cadrage: "50% 42%" },
-    acotar: { image: "assets/img/portails/acotar.jpg?v=4", credit: "", cadrage: "55% 42%" },
-    cc: { image: "assets/img/portails/cc.jpg?v=4", credit: "", cadrage: "52% 55%" },
+    tog: { image: "assets/img/portails/tog.jpg?v=5", credit: "Dream World Dweller", cadrage: "50% 42%",
+      paysage: "assets/img/portails/tog-paysage.jpg?v=5", creditPaysage: "", cadragePaysage: "50% 85%" },
+    acotar: { image: "assets/img/portails/acotar.jpg?v=5", credit: "", cadrage: "55% 42%",
+      paysage: "assets/img/portails/acotar-paysage.jpg?v=5", creditPaysage: "", cadragePaysage: "50% 40%" },
+    cc: { image: "assets/img/portails/cc.jpg?v=5", credit: "", cadrage: "52% 55%",
+      paysage: "assets/img/portails/cc-paysage.jpg?v=5", creditPaysage: "", cadragePaysage: "50% 50%" },
   };
   M.ILLUSTRATIONS = ILLUSTRATIONS;
-  M.creditIllustration = function (cle) {
+  // format : "portail" (vertical, accueil) ou "paysage" (bannière dans l'univers)
+  M.creditIllustration = function (cle, format) {
     const il = ILLUSTRATIONS[cle];
     if (!il || !il.image) return "";
-    return "Illustration : " + (il.credit || "artiste à créditer (Pinterest)");
+    const credit = format === "paysage" && il.paysage ? il.creditPaysage : il.credit;
+    return "Illustration : " + (credit || "artiste à créditer (Pinterest)");
   };
-  M.scene = function (cle, classe) {
+  M.scene = function (cle, classe, format) {
     const il = ILLUSTRATIONS[cle];
     if (il && il.image) {
-      return '<img class="scene scene-image scene-' + cle + " " + (classe || "") + '" src="' + il.image + '" alt="" style="object-position:' + il.cadrage + '" decoding="async">';
+      const large = format === "paysage" && il.paysage;
+      return '<img class="scene scene-image scene-' + cle + " " + (classe || "") + '" src="' + (large ? il.paysage : il.image) +
+        '" alt="" style="object-position:' + (large ? il.cadragePaysage : il.cadrage) + '" decoding="async">';
     }
     if (!cache[cle]) cache[cle] = SCENES[cle]();
     return '<svg class="scene scene-' + cle + " " + (classe || "") + '" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">' + cache[cle] + "</svg>";

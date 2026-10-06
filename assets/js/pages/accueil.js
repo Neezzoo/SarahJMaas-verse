@@ -19,6 +19,13 @@ document.addEventListener("DOMContentLoaded", function () {
   function memoriser(cle) { try { sessionStorage.setItem("maasverse-portail", cle); } catch (e) { /* stockage indisponible */ } }
 
   document.querySelectorAll(".portail").forEach(function (portail) {
+    function precharger() {
+      const il = (M.ILLUSTRATIONS || {})[portail.dataset.univers];
+      if (il && il.paysage && !portail.dataset.precharge) { portail.dataset.precharge = "1"; new Image().src = il.paysage; }
+    }
+    portail.addEventListener("pointerenter", precharger);
+    portail.addEventListener("focus", precharger);
+    portail.addEventListener("touchstart", precharger, { passive: true });
     portail.addEventListener("click", function (e) {
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
       e.preventDefault();
@@ -35,7 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
       portail.classList.add("choisi");
 
       passage.className = "passage " + cle;
-      passage.innerHTML = '<div class="passage-scene">' + M.scene(cle) + '</div><div class="passage-anneau"></div><div class="passage-eclat"></div>';
+      // l'image verticale du portail s'efface au profit de la grande image en paysage, plus nette en plein écran
+      passage.innerHTML = '<div class="passage-scene">' + M.scene(cle) + '<div class="passage-paysage">' + M.scene(cle, "", "paysage") + "</div></div>" +
+        '<div class="passage-anneau"></div><div class="passage-eclat"></div>';
       Object.assign(passage.style, { left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px", borderRadius: rayon + "px " + rayon + "px 6px 6px" });
 
       // 1. l'arche s'embrase
@@ -46,8 +55,10 @@ document.addEventListener("DOMContentLoaded", function () {
           { left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px", borderRadius: rayon + "px " + rayon + "px 6px 6px" },
           { left: "0px", top: "0px", width: innerWidth + "px", height: innerHeight + "px", borderRadius: "0px 0px 0px 0px" },
         ], { duration: 950, easing: "cubic-bezier(.7,0,.25,1)", fill: "forwards" });
-        passage.querySelector(".passage-scene").animate([{ transform: "scale(1)" }, { transform: "scale(1.45)" }],
+        passage.querySelector(".passage-scene").animate([{ transform: "scale(1)" }, { transform: "scale(1.12)" }],
           { duration: 1300, easing: "cubic-bezier(.5,0,.3,1)", fill: "forwards" });
+        passage.querySelector(".passage-paysage").animate([{ opacity: 0 }, { opacity: 0, offset: .15 }, { opacity: 1, offset: .65 }, { opacity: 1 }],
+          { duration: 950, easing: "ease-in-out", fill: "forwards" });
         passage.querySelector(".passage-anneau").animate([
           { transform: "translate(-50%,-50%) scale(.2) rotate(0deg)", opacity: 0 },
           { transform: "translate(-50%,-50%) scale(1) rotate(90deg)", opacity: 1, offset: .5 },

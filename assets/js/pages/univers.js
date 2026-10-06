@@ -44,8 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   /* ---------- Bannière ---------- */
   document.getElementById("banniere").innerHTML =
-    '<div class="banniere-scene">' + M.scene(S) + "</div>" +
-    (M.creditIllustration(S) ? '<p class="credit-banniere">' + M.echap(M.creditIllustration(S)) + "</p>" : "") +
+    '<div class="banniere-scene">' + M.scene(S, "", "paysage") + "</div>" +
+    (M.creditIllustration(S, "paysage") ? '<p class="credit-banniere">' + M.echap(M.creditIllustration(S, "paysage")) + "</p>" : "") +
     '<div class="conteneur banniere-texte">' +
     '<p class="surtitre"><a href="index.html">Accueil</a> <span aria-hidden="true">✦</span> Le monde ' + (U.monde === "Erilea" ? "d'" : "de ") + U.monde + "</p>" +
     "<h1>" + U.titre + "</h1>" +

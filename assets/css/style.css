@@ -806,7 +806,7 @@ select.champ { min-width: 0; }
 .arrivee .voile-arrivee { animation: voile 1.2s ease-out forwards; }
 .arrivee .banniere-scene .scene { animation: atterrir 1.8s cubic-bezier(.2,.7,.2,1); }
 @keyframes voile { 0% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes atterrir { from { transform: scale(1.4); } to { transform: scale(1); } }
+@keyframes atterrir { from { transform: scale(1.12); } to { transform: scale(1); } }
 
 /* Bannière d'un univers */
 .banniere { position: relative; min-height: min(76vh, 680px); display: flex; align-items: flex-end; overflow: hidden; }
@@ -916,3 +916,4 @@ body.spoilers-reveles .rappel .spoiler { max-height: none; }
 .credit-illu { font-family: var(--f-ui); font-size: .64rem; letter-spacing: .04em; color: var(--texte-faible); margin-top: 8px; }
 .credit-banniere { position: absolute; right: 16px; bottom: 8px; z-index: 1; margin: 0; font-family: var(--f-ui); font-size: .66rem; color: rgba(255,255,255,.55); }
 .portail-en-cours .portail.choisi .credit-illu { opacity: 0; }
+.passage-paysage { position: absolute; inset: 0; opacity: 0; }
