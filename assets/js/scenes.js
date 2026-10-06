@@ -254,7 +254,7 @@
      cadrage : la partie de l'image à garder visible quand elle est recadrée. */
   const ILLUSTRATIONS = {
     tog: { image: "assets/img/portails/tog.jpg", credit: "Dream World Dweller", cadrage: "50% 42%" },
-    acotar: { image: "assets/img/portails/acotar.jpg", credit: "", cadrage: "50% 45%" },
+    acotar: { image: "assets/img/portails/acotar.jpg", credit: "", cadrage: "55% 42%" },
     cc: { image: "assets/img/portails/cc.jpg", credit: "", cadrage: "52% 55%" },
   };
   M.ILLUSTRATIONS = ILLUSTRATIONS;
