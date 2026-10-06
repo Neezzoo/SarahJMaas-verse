@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Court of Thorns and Roses · Maasverse</title>
+  <meta name="description" content="Le monde de Prythian : les livres d'ACOTAR, les rappels entre les tomes, les personnages, la carte, le glossaire et le quiz.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="acotar" data-univers="acotar" class="univers univers-acotar">
+  <script>try { if (sessionStorage.getItem("maasverse-portail") === document.body.dataset.univers && !matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("arrivee"); } catch (e) { /* stockage indisponible */ }</script>
+  <div class="voile-arrivee" aria-hidden="true"></div>
+  <main>
+    <header class="banniere" id="banniere"></header>
+    <nav class="sous-nav" id="sousNav" aria-label="Rubriques de l'univers"></nav>
+    <section class="section panneaux">
+      <div class="conteneur">
+        <div id="panneau-livres" class="panneau" hidden></div>
+        <div id="panneau-a-savoir" class="panneau" hidden></div>
+        <div id="panneau-personnages" class="panneau" hidden></div>
+        <div id="panneau-carte" class="panneau" hidden></div>
+        <div id="panneau-glossaire" class="panneau" hidden></div>
+        <div id="panneau-quiz" class="panneau" hidden></div>
+      </div>
+    </section>
+    <dialog class="modale" id="modale"><div style="position:relative"><button class="fermer" id="fermerModale" aria-label="Fermer">×</button><div class="boite" id="fiche"></div></div></dialog>
+  </main>
+
+  <script src="assets/js/data/livres.js"></script>
+  <script src="assets/js/data/livres-textes.js"></script>
+  <script src="assets/js/data/personnages.js"></script>
+  <script src="assets/js/data/personnalites-tog.js"></script>
+  <script src="assets/js/data/personnalites-acotar.js"></script>
+  <script src="assets/js/data/personnalites-cc.js"></script>
+  <script src="assets/js/data/cartes.js"></script>
+  <script src="assets/js/data/glossaire.js"></script>
+  <script src="assets/js/data/quiz.js"></script>
+  <script src="assets/js/data/fanarts.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/scenes.js"></script>
+  <script src="assets/js/carte.js"></script>
+  <script src="assets/js/pages/univers.js"></script>
+</body>
+</html>

@@ -50,8 +50,10 @@ document.addEventListener("DOMContentLoaded", function () {
     detail.innerHTML = '<p class="meta">' + M.SAGAS[l.saga].court + " · " + (l.aVenir ? "à paraître le " + l.date : l.annee) + "</p>" +
       "<h3><em>" + M.echap(l.vo) + "</em></h3>" +
       '<p class="meta">VF : ' + M.echap(l.vf) + "</p>" +
-      "<p><strong>Sans spoiler :</strong> " + M.riche(l.pitch) + "</p>" +
-      "<p><strong>Résumé :</strong> " + M.riche(l.resume) + "</p>";
+      ((M.textesLivres || {})[l.id] ? '<p class="accroche">' + M.riche(M.textesLivres[l.id].accroche) + "</p>" +
+        M.textesLivres[l.id].quatrieme.split(/\n\n+/).map(function (x) { return "<p>" + M.riche(x) + "</p>"; }).join("")
+        : "<p>" + M.riche(l.pitch) + "</p>") +
+      '<p><a class="btn secondaire" href="' + l.saga + ".html#livre-" + l.id + '">Ouvrir dans le monde ' + (M.SAGAS[l.saga].monde === "Erilea" ? "d'" : "de ") + M.SAGAS[l.saga].monde + " →</a></p>";
     if (defiler) detail.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
   conteneur.addEventListener("click", function (e) {

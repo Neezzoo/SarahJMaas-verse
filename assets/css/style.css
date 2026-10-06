@@ -530,7 +530,7 @@ select.champ { min-width: 0; }
 /* ---------- Pied de page ---------- */
 .pied { border-top: 1px solid rgba(231,197,107,.15); padding: 48px 0 40px; margin-top: 80px; color: var(--texte-faible); font-size: 1rem;
   background: linear-gradient(180deg, rgba(19,20,31,.6), var(--nuit)); }
-.pied-grille { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 28px; }
+.pied-grille { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
 .pied-marque p { max-width: 300px; margin-top: 10px; }
 .pied-titre { font-family: var(--f-titre); letter-spacing: .14em; text-transform: uppercase; font-size: .78rem; color: var(--or); margin-bottom: 10px; }
 .pied ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
@@ -725,3 +725,189 @@ select.champ { min-width: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
+
+/* ==========================================================
+   v3 · Trois univers : portails, bannières, rubriques
+   ========================================================== */
+.portail.tog, .univers-tog, .passage.tog { --c: #ffb35e; --c-eclat: #ffcf8a; }
+.portail.acotar, .univers-acotar, .passage.acotar { --c: #c7a6ff; --c-eclat: #b3a6ff; }
+.portail.cc, .univers-cc, .passage.cc { --c: #ff7fa6; --c-eclat: #ff9bb8; }
+
+/* Scènes animées */
+.scene { display: block; width: 100%; height: 100%; }
+.scene .scint { animation: scintille 3.2s ease-in-out infinite; }
+.scene .chute { animation: chute 1s linear infinite; }
+.scene .neon { animation: neon 7s steps(1) infinite; }
+.scene .reflet { animation: reflet 2.8s ease-in-out infinite; }
+@keyframes scintille { 0%, 100% { opacity: .2; } 50% { opacity: 1; } }
+@keyframes chute { to { stroke-dashoffset: -56; } }
+@keyframes neon { 0%, 100% { opacity: 1; } 40% { opacity: .25; } 41% { opacity: 1; } 43% { opacity: .35; } 44% { opacity: 1; } }
+@keyframes reflet { 50% { opacity: .12; } }
+
+/* Accueil : les portails */
+.portails-une { min-height: calc(100vh - 64px); padding: 44px 0 28px; display: flex; flex-direction: column; justify-content: center; }
+.titre-portails { text-align: center; transition: opacity .4s; }
+.titre-portails .surtitre { font-family: var(--f-ui); letter-spacing: .22em; font-size: .74rem; text-transform: uppercase; color: var(--texte-faible); margin-bottom: 12px; }
+.titre-portails h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); margin-bottom: .3em; }
+.titre-portails h1 em { font-style: normal; background: linear-gradient(90deg, var(--tog), var(--acotar), var(--cc)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.titre-portails .intro { margin: 0 auto 44px; }
+.portails { display: grid; grid-template-columns: repeat(3, minmax(0, 290px)); justify-content: center; gap: clamp(20px, 4.5vw, 64px); width: min(100% - 32px, 1100px); margin: 0 auto; }
+.portail { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--texte); position: relative; transition: opacity .45s, transform .45s, filter .45s; }
+.portail:hover { color: var(--texte); }
+.arche {
+  position: relative; display: block; width: 100%; aspect-ratio: 3 / 4.5; overflow: hidden; isolation: isolate;
+  border-radius: 999px 999px 8px 8px; transform: translateZ(0);
+  box-shadow: 0 0 0 2px rgba(231,197,107,.85), 0 0 0 7px rgba(12,13,22,.92), 0 0 0 8px rgba(231,197,107,.4), 0 24px 60px rgba(0,0,0,.6), 0 0 60px -14px var(--c);
+  transition: box-shadow .5s, transform .5s;
+}
+.scene-hote { position: absolute; inset: 0; display: block; transition: transform 1.4s cubic-bezier(.2,.7,.2,1); }
+.lueur { position: absolute; inset: 0; pointer-events: none; transition: opacity .5s;
+  background: radial-gradient(ellipse at 50% 60%, transparent 45%, rgba(5,5,12,.5)), linear-gradient(transparent 65%, rgba(12,13,22,.5)); }
+.reflet-verre { position: absolute; inset: 0; pointer-events: none; transform: translateX(-130%); transition: transform 1.2s ease;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.18) 45%, transparent 56%); }
+.portail:hover .arche, .portail:focus-visible .arche { transform: translateY(-8px);
+  box-shadow: 0 0 0 2px rgba(244,227,174,1), 0 0 0 7px rgba(12,13,22,.92), 0 0 0 8px rgba(231,197,107,.7), 0 30px 70px rgba(0,0,0,.6), 0 0 90px -4px var(--c); }
+.portail:hover .scene-hote, .portail:focus-visible .scene-hote { transform: scale(1.07); }
+.portail:hover .reflet-verre, .portail:focus-visible .reflet-verre { transform: translateX(130%); }
+.portail:hover .lueur { opacity: .55; }
+.portail:focus-visible { outline: none; }
+.cle-voute { position: absolute; top: -19px; left: 50%; transform: translateX(-50%); z-index: 2; width: 38px; height: 38px; border-radius: 50%;
+  background: var(--nuit); border: 1.5px solid var(--or); display: grid; place-items: center; color: var(--c); box-shadow: 0 0 20px -2px var(--c); transition: transform .5s; }
+.portail:hover .cle-voute { transform: translateX(-50%) translateY(-8px) rotate(360deg); transition: transform .9s; }
+.cle-voute svg { width: 19px; height: 19px; }
+.texte-portail { text-align: center; margin-top: 24px; display: flex; flex-direction: column; gap: 4px; align-items: center; }
+.texte-portail .monde { font-family: var(--f-ui); font-size: .7rem; letter-spacing: .32em; text-transform: uppercase; color: var(--c); }
+.texte-portail strong { font-family: var(--f-titre); font-size: 1.3rem; color: var(--or-pale); letter-spacing: .06em; line-height: 1.25; font-weight: 600; }
+.texte-portail .devise { font-style: italic; color: var(--texte-doux); font-size: 1.06rem; line-height: 1.35; max-width: 260px; }
+.franchir { margin-top: 12px; font-family: var(--f-ui); font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--or);
+  border: 1px solid rgba(231,197,107,.45); border-radius: 999px; padding: 8px 18px; transition: background .3s, color .3s; }
+.portail:hover .franchir, .portail:focus-visible .franchir { background: var(--or); color: var(--nuit); }
+.vers-multivers { display: block; width: max-content; margin: 40px auto 0; font-family: var(--f-ui); font-size: .76rem; letter-spacing: .16em; text-transform: uppercase; color: var(--texte-doux); text-decoration: none; transition: opacity .4s; }
+.vers-multivers span { display: inline-block; animation: flotte 2.2s ease-in-out infinite; }
+@keyframes flotte { 50% { transform: translateY(5px); } }
+
+/* l'ouverture d'un portail */
+.portail-en-cours .portail:not(.choisi) { opacity: 0; transform: scale(.92); filter: blur(5px); }
+.portail-en-cours .titre-portails, .portail-en-cours .vers-multivers, .portail-en-cours .portail.choisi .texte-portail { opacity: 0; transition: opacity .35s; }
+.portail-en-cours .portail.choisi .arche { transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 0 0 2px #fff6d8, 0 0 0 7px rgba(12,13,22,.92), 0 0 0 8px rgba(231,197,107,.9), 0 0 160px 20px var(--c); }
+.portail-en-cours .portail.choisi .lueur { opacity: 0; }
+.passage { position: fixed; z-index: 300; overflow: hidden; pointer-events: none; display: none; }
+.passage.visible { display: block; }
+.passage-scene { position: absolute; inset: 0; transform-origin: 50% 62%; }
+.passage-anneau { position: absolute; left: 50%; top: 50%; width: 80vmin; height: 80vmin; border-radius: 50%; opacity: 0;
+  border: 2px solid rgba(255,244,214,.9); box-shadow: 0 0 50px rgba(255,244,214,.7), inset 0 0 50px rgba(255,244,214,.5);
+  background: repeating-conic-gradient(rgba(255,244,214,0) 0 7deg, rgba(255,244,214,.35) 7deg 8deg);
+  -webkit-mask: radial-gradient(circle, transparent 58%, #000 60%); mask: radial-gradient(circle, transparent 58%, #000 60%); }
+.passage-eclat { position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at 50% 55%, #fff 0, var(--c-eclat) 40%, var(--nuit) 100%); }
+
+/* arrivée dans un univers */
+.voile-arrivee { position: fixed; inset: 0; z-index: 300; pointer-events: none; opacity: 0; background: radial-gradient(circle at 50% 40%, #fff 0, var(--c-eclat) 40%, var(--nuit) 100%); }
+.arrivee .voile-arrivee { animation: voile 1.2s ease-out forwards; }
+.arrivee .banniere-scene .scene { animation: atterrir 1.8s cubic-bezier(.2,.7,.2,1); }
+@keyframes voile { 0% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes atterrir { from { transform: scale(1.4); } to { transform: scale(1); } }
+
+/* Bannière d'un univers */
+.banniere { position: relative; min-height: min(76vh, 680px); display: flex; align-items: flex-end; overflow: hidden; }
+.banniere-scene { position: absolute; inset: 0; }
+.banniere-scene::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(12,13,22,.2) 0%, rgba(12,13,22,.05) 35%, rgba(12,13,22,.8) 75%, var(--nuit) 100%); }
+.banniere-texte { position: relative; padding: 160px 0 34px; text-align: center; }
+.banniere .surtitre { font-family: var(--f-ui); letter-spacing: .14em; font-size: .74rem; text-transform: uppercase; color: rgba(255,255,255,.75); margin-bottom: 12px; text-shadow: 0 1px 8px rgba(0,0,0,.8); }
+.banniere .surtitre a { color: inherit; text-decoration: none; }
+.banniere .surtitre a:hover { color: var(--or); }
+.banniere .surtitre span { color: var(--c); margin: 0 6px; }
+.banniere h1 { font-size: clamp(2.2rem, 6vw, 4.4rem); margin-bottom: .2em; text-shadow: 0 2px 30px rgba(0,0,0,.8); text-wrap: balance; }
+.banniere .devise { font-family: var(--f-titre); color: var(--c); letter-spacing: .08em; font-size: 1.05rem; text-shadow: 0 1px 10px rgba(0,0,0,.9); }
+.banniere .pitch { max-width: 800px; margin: 0 auto 14px; font-size: 1.3rem; text-shadow: 0 1px 14px rgba(0,0,0,.95); }
+.banniere .meta { color: var(--texte-doux); }
+
+/* Rubriques d'un univers */
+.sous-nav { position: sticky; top: 64px; z-index: 40; background: rgba(12,13,22,.92); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(231,197,107,.15); }
+.sous-nav-liste { display: flex; justify-content: center; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.sous-nav-liste::-webkit-scrollbar { display: none; }
+.sous-nav a { flex: 0 0 auto; padding: 14px 16px 12px; font-family: var(--f-titre); font-size: .92rem; letter-spacing: .08em; color: var(--texte-doux); text-decoration: none; border-bottom: 2px solid transparent; }
+.sous-nav a:hover { color: var(--or-pale); }
+.sous-nav a[aria-selected="true"] { color: var(--or-pale); border-bottom-color: var(--c); }
+.panneaux { padding-top: 34px; min-height: 60vh; }
+.panneau { animation: apparait .4s ease; }
+@keyframes apparait { from { opacity: 0; transform: translateY(8px); } }
+.nav-tog > .nav-lien.actif, .nav-acotar > .nav-lien.actif, .nav-cc > .nav-lien.actif { color: var(--c); }
+.nav-tog { --c: #ffb35e; } .nav-acotar { --c: #c7a6ff; } .nav-cc { --c: #ff7fa6; }
+.nav-tog .sous-menu a strong, .nav-acotar .sous-menu a strong, .nav-cc .sous-menu a strong { color: var(--or-pale); }
+
+/* Livres et quatrième de couverture */
+.livre[aria-pressed="true"] { transform: translateY(-6px); box-shadow: inset 0 0 40px rgba(0,0,0,.35), 0 0 0 2px var(--or), 0 10px 24px rgba(0,0,0,.5); }
+.quatrieme { display: grid; grid-template-columns: 220px 1fr; gap: 36px; margin-top: 14px; padding: 32px; border: 1px solid var(--bord); border-radius: 18px;
+  background: var(--nuit-2); background: linear-gradient(135deg, color-mix(in srgb, var(--teinte) 22%, var(--nuit-2)), var(--nuit-2) 65%); }
+.quatrieme-couv { aspect-ratio: 2 / 3; border-radius: 8px; padding: 24px 18px; display: flex; flex-direction: column; justify-content: space-between; text-align: center; color: #fff; position: relative; align-self: start;
+  box-shadow: inset 0 0 50px rgba(0,0,0,.4), 0 18px 40px rgba(0,0,0,.5); }
+.quatrieme-couv::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(255,255,255,.25); border-radius: 5px; }
+.quatrieme-couv .num { font-family: var(--f-ui); font-size: .68rem; letter-spacing: .2em; opacity: .85; }
+.quatrieme-couv .titre { font-family: var(--f-titre); text-transform: uppercase; font-size: 1.35rem; letter-spacing: .06em; line-height: 1.2; }
+.quatrieme-couv .auteur { font-family: var(--f-titre); font-size: .72rem; letter-spacing: .3em; opacity: .9; }
+.quatrieme h2 { margin-bottom: .25em; }
+.accroche { font-family: var(--f-titre); color: var(--c); font-size: 1.12rem; letter-spacing: .04em; line-height: 1.4; }
+.texte-quatrieme p { font-size: 1.24rem; line-height: 1.65; }
+.texte-quatrieme p:first-child::first-letter { font-family: var(--f-titre); font-size: 3.2em; float: left; line-height: .9; padding: 6px 10px 0 0; color: var(--or); }
+.univers-bas { display: grid; grid-template-columns: 1fr 240px; gap: 28px; align-items: center; margin-top: 34px; }
+.univers-bas .fanart { aspect-ratio: 3 / 4; }
+
+/* À savoir */
+.rappels { list-style: none; padding: 0; margin: 0 auto; max-width: 880px; position: relative; }
+.rappels::before { content: ""; position: absolute; left: 27px; top: 20px; bottom: 20px; width: 2px; background: linear-gradient(var(--c), rgba(231,197,107,.2)); }
+.rappel { position: relative; padding-left: 76px; margin-bottom: 30px; scroll-margin-top: 140px; }
+.rappel-tete { display: flex; align-items: center; gap: 18px; margin: 0 0 12px -76px; }
+.rappel-num { flex: 0 0 56px; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; position: relative; z-index: 1;
+  font-family: var(--f-titre); font-weight: 700; font-size: .85rem; background: var(--nuit-2); border: 2px solid var(--teinte); color: var(--or-pale); box-shadow: 0 0 22px -4px var(--teinte); }
+.rappel h3 { margin: 0; }
+.rappel-tete .meta { margin: 0; }
+.rappel .spoiler { border-radius: 12px; padding: 16px 18px 6px; min-height: 4em; }
+.rappel .spoiler ul { margin: 0; padding-left: 20px; }
+.rappel .spoiler li { margin-bottom: 8px; }
+
+/* Fiche : personnalité */
+.traits { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 14px; }
+.traits span:not(.spoiler) { font-family: var(--f-ui); font-size: .72rem; letter-spacing: .05em; padding: 4px 11px; border-radius: 999px; border: 1px solid rgba(231,197,107,.35); color: var(--or-pale); background: rgba(231,197,107,.06); }
+.fiche-titre { font-family: var(--f-ui); font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; color: var(--texte-faible); margin: 20px 0 6px; font-weight: 600; }
+.gouts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.gouts ul { margin: 0; padding-left: 18px; font-size: 1.08rem; }
+.gouts li { margin-bottom: 3px; }
+.aime .fiche-titre { color: #ee93b6; }
+.naime-pas .fiche-titre { color: #93b4ee; }
+.anecdote { margin: 18px 0 0; padding: 12px 16px; border-radius: 10px; background: rgba(231,197,107,.07); border-left: 2px solid var(--or); font-size: 1.1rem; }
+
+/* La quatrième porte : le Multivers */
+.multivers { border-top: 1px solid rgba(231,197,107,.15); background: radial-gradient(ellipse at 50% 0%, rgba(123,94,167,.2), transparent 60%); padding-top: 70px; }
+.multivers-carte { grid-template-columns: 1fr 300px; align-items: center; margin-bottom: 34px; }
+.multivers-tuiles { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 900px) {
+  .quatrieme { grid-template-columns: 1fr; padding: 24px; }
+  .quatrieme-couv { width: 180px; margin: 0 auto; }
+  .univers-bas { grid-template-columns: 1fr; }
+  .univers-bas .fanart { max-width: 240px; }
+  .multivers-tuiles { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .portails { grid-template-columns: minmax(0, 300px); gap: 64px; }
+  .arche { aspect-ratio: 3 / 3.6; }
+  .titre-portails .intro { margin-bottom: 40px; }
+  .sous-nav-liste { justify-content: flex-start; }
+  .sous-nav a { padding: 13px 12px 11px; font-size: .85rem; }
+  .banniere-texte { padding-top: 120px; }
+  .banniere .pitch { font-size: 1.15rem; }
+  .gouts { grid-template-columns: 1fr; gap: 0; }
+  .rappels::before { left: 21px; }
+  .rappel { padding-left: 0; }
+  .rappel-tete { margin-left: 0; }
+  .rappel-num { flex-basis: 44px; width: 44px; height: 44px; font-size: .75rem; }
+  .multivers-tuiles { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene *, .vers-multivers span, .panneau { animation: none !important; }
+  .arrivee .voile-arrivee, .arrivee .banniere-scene .scene { animation: none; }
+}
+.rappel .spoiler:not(.revele) { max-height: 130px; overflow: hidden; }
+body.spoilers-reveles .rappel .spoiler { max-height: none; }

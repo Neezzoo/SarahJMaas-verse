@@ -8,20 +8,27 @@
   const M = (window.MAAS = window.MAAS || {});
 
   /* Menu regroupé en rubriques. Pour ajouter une page : l'ajouter dans la bonne rubrique. */
+  const SECTIONS_UNIVERS = function (s, carte) {
+    return [
+      { href: s + ".html#livres", titre: "Les livres", desc: "Les tomes et leur quatrième de couverture" },
+      { href: s + ".html#a-savoir", titre: "À savoir", desc: "Le rappel avant d'ouvrir le tome suivant" },
+      { href: s + ".html#personnages", titre: "Personnages", desc: "Fiches, caractères, couples" },
+      { href: s + ".html#carte", titre: carte, desc: "La carte à explorer" },
+      { href: s + ".html#glossaire", titre: "Glossaire", desc: "Le vocabulaire de ce monde" },
+      { href: s + ".html#quiz", titre: "Quiz", desc: "Testez-vous sur cette saga" },
+    ];
+  };
   const RUBRIQUES = [
-    { titre: "Les livres", pages: [
-      { id: "sagas", href: "sagas.html", titre: "Sagas & ordre de lecture", desc: "Tous les tomes, VO et VF, par où commencer" },
-      { id: "chronologie", href: "chronologie.html", titre: "Chronologie", desc: "Les parutions et l'histoire des mondes" },
+    { titre: "Throne of Glass", saga: "tog", univers: true, pages: [{ id: "tog", href: "tog.html", titre: "Throne of Glass", desc: "Le monde d'Erilea" }], sections: SECTIONS_UNIVERS("tog", "Carte d'Erilea") },
+    { titre: "ACOTAR", saga: "acotar", univers: true, pages: [{ id: "acotar", href: "acotar.html", titre: "ACOTAR", desc: "Le monde de Prythian" }], sections: SECTIONS_UNIVERS("acotar", "Carte de Prythian") },
+    { titre: "Crescent City", saga: "cc", univers: true, pages: [{ id: "cc", href: "cc.html", titre: "Crescent City", desc: "Le monde de Midgard" }], sections: SECTIONS_UNIVERS("cc", "Cartes de Midgard") },
+    { titre: "Multivers", pages: [
+      { id: "liens", href: "liens.html", titre: "Les liens entre les sagas", desc: "La carte du multivers, crossovers et théories" },
+      { id: "chronologie", href: "chronologie.html", titre: "Chronologie", desc: "Les parutions et l'histoire des trois mondes" },
+      { id: "sagas", href: "sagas.html", titre: "Ordre de lecture", desc: "Tous les tomes, VO et VF, par où commencer" },
+      { id: "glossaire", href: "glossaire.html", titre: "Glossaire complet", desc: "Les trois mondes réunis" },
+      { id: "quiz", href: "quiz.html", titre: "Le grand quiz", desc: "Les trois sagas et leurs liens" },
       { id: "actus", href: "actus.html", titre: "Actualités", desc: "Valkyrie Cycle, Crescent City 4, adaptations" },
-    ] },
-    { titre: "L'univers", pages: [
-      { id: "cartes", href: "cartes.html", titre: "Cartes", desc: "Erilea, Prythian, Midgard, Lunathion" },
-      { id: "personnages", href: "personnages.html", titre: "Personnages", desc: "Fiches, relations et couples" },
-      { id: "liens", href: "liens.html", titre: "Les liens entre les sagas", desc: "Crossovers, échos et théories" },
-      { id: "glossaire", href: "glossaire.html", titre: "Glossaire", desc: "Races, magie, dieux et objets" },
-    ] },
-    { titre: "Jouer", pages: [
-      { id: "quiz", href: "quiz.html", titre: "Quiz", desc: "Testez vos connaissances" },
     ] },
   ];
   const PAGES = [{ id: "accueil", href: "index.html", titre: "Accueil" }].concat(
@@ -90,14 +97,15 @@
     const courant = function (p) { return p.id === page ? ' aria-current="page"' : ""; };
     const nav = RUBRIQUES.map(function (r, i) {
       const actif = r.pages.some(function (p) { return p.id === page; });
-      if (r.pages.length === 1) {
+      const items = r.sections || r.pages;
+      if (!r.univers && r.pages.length === 1) {
         const p = r.pages[0];
         return '<a class="nav-lien' + (actif ? " actif" : "") + '" href="' + p.href + '"' + courant(p) + ">" + p.titre + "</a>";
       }
-      return '<div class="nav-groupe">' +
+      return '<div class="nav-groupe' + (r.saga ? " nav-" + r.saga : "") + '">' +
         '<button class="nav-lien' + (actif ? " actif" : "") + '" aria-expanded="false" aria-controls="sousmenu-' + i + '">' + r.titre +
         ' <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>' +
-        '<div class="sous-menu" id="sousmenu-' + i + '"><p class="sous-titre">' + r.titre + "</p>" + r.pages.map(function (p) {
+        '<div class="sous-menu" id="sousmenu-' + i + '"><p class="sous-titre">' + r.titre + "</p>" + items.map(function (p) {
           return '<a href="' + p.href + '"' + courant(p) + "><strong>" + p.titre + "</strong><span>" + p.desc + "</span></a>";
         }).join("") + "</div></div>";
     }).join("");
@@ -154,7 +162,7 @@
       '<div class="pied-marque"><a class="logo" href="index.html">' + ICONE_CROISSANT + "<span>Maasverse</span></a>" +
       "<p>Le guide francophone des trois sagas de Sarah J. Maas et de ce qui les relie.</p></div>" +
       RUBRIQUES.map(function (r) {
-        return '<div><p class="pied-titre">' + r.titre + "</p><ul>" + r.pages.map(function (p) {
+        return '<div><p class="pied-titre">' + r.titre + "</p><ul>" + (r.sections || r.pages).map(function (p) {
           return '<li><a href="' + p.href + '">' + p.titre + "</a></li>";
         }).join("") + "</ul></div>";
       }).join("") +
@@ -200,16 +208,16 @@
   function construireIndex() {
     const idx = [];
     (M.personnages || []).forEach(function (p) {
-      idx.push({ type: "Personnage", titre: p.nom, saga: p.saga, url: "personnages.html#" + p.id, texte: [p.nom, p.alias, p.motscles, p.race, p.affiliation].join(" ") });
+      idx.push({ type: "Personnage", titre: p.nom, saga: p.saga, url: p.saga + ".html#perso-" + p.id, texte: [p.nom, p.alias, p.motscles, p.race, p.affiliation].join(" ") });
     });
     Object.keys(M.cartes || {}).forEach(function (cle) {
       const c = M.cartes[cle];
       (c.lieux || []).forEach(function (l) {
-        idx.push({ type: "Lieu", titre: l.nom, saga: c.saga, url: "cartes.html#" + cle + "/" + l.id, texte: [l.nom, l.vo, l.type].join(" ") });
+        idx.push({ type: "Lieu", titre: l.nom, saga: c.saga, url: c.saga + ".html#carte/" + cle + "/" + l.id, texte: [l.nom, l.vo, l.type].join(" ") });
       });
     });
     (M.livres || []).forEach(function (l) {
-      idx.push({ type: "Livre", titre: l.vo, saga: l.saga, url: "sagas.html#" + l.id, texte: [l.vo, l.vf, l.sigle].join(" ") });
+      idx.push({ type: "Livre", titre: l.vo, saga: l.saga, url: l.saga + ".html#livre-" + l.id, texte: [l.vo, l.vf, l.sigle].join(" ") });
     });
     (M.glossaire || []).forEach(function (g) {
       idx.push({ type: "Glossaire", titre: g.terme, saga: g.saga, url: "glossaire.html#" + g.id, texte: [g.terme, g.vo].join(" ") });

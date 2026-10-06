@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Maasverse · Un multivers, trois mondes</title>
+  <title>Maasverse · Trois portes, trois mondes</title>
   <meta name="description" content="Site de fan francophone sur les sagas de Sarah J. Maas : Throne of Glass, ACOTAR et Crescent City, et ce qui les relie.">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,135 +13,63 @@
 </head>
 <body data-page="accueil">
   <main>
-    <section class="une">
-      <div class="conteneur">
-        <div>
-          <p class="surtitre">SARAH J. MAAS</p>
-          <h1>Un multivers, <em>trois mondes</em></h1>
-          <p class="intro">Erilea, Prythian, Midgard : trois sagas, et des portes entre elles. Le guide francophone pour s'y retrouver, que vous ouvriez votre premier tome ou que vous ayez tout lu.</p>
-          <div class="actions">
-            <a class="btn" href="sagas.html#ordre">Par où commencer ?</a>
-            <a class="btn secondaire" href="liens.html">Ce qui relie les sagas</a>
-          </div>
-          <div class="chiffres">
-            <div><strong id="nbLivres">18</strong>livres</div>
-            <div><strong>3</strong>mondes</div>
-            <div><strong id="nbPersos">121</strong>personnages</div>
-            <div><strong>4</strong>cartes</div>
-          </div>
-        </div>
-        <div class="coffret-dos" aria-label="Les trois sagas">
-          <a class="dos tog" href="sagas.html#tog">
-            <span class="auteur">SARAH<br>J. MAAS</span>
-            <span class="titre-dos">Throne <small>of</small> Glass</span>
-            <svg class="embleme" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2c1.5 4.5 6 6 6 11a6 6 0 0 1-12 0c0-3 2.2-4.5 2.7-7.2 1.2 1.8.9 3.8 2.1 4.5.6-3 0-6 1.2-8.3z"/></svg>
-            <span class="etiquette-dos">Erilea</span>
-          </a>
-          <a class="dos acotar" href="sagas.html#acotar">
-            <span class="auteur">SARAH<br>J. MAAS</span>
-            <span class="titre-dos">A Court <small>of</small> Thorns <small>and</small> Roses</span>
-            <svg class="embleme" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="10" r="4.5"/><path d="M12 5.5c-2 2-2 5 0 9M12 14.5V22M12 18c-2-1-4-1-5 0M12 19c2-1 4-1 5 0"/></g></svg>
-            <span class="etiquette-dos">Prythian</span>
-          </a>
-          <a class="dos cc" href="sagas.html#cc">
-            <span class="auteur">SARAH<br>J. MAAS</span>
-            <span class="titre-dos">Crescent City</span>
-            <svg class="embleme" viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M40 6a26 26 0 1 0 18 44A22 22 0 1 1 40 6z"/></svg>
-            <span class="etiquette-dos">Midgard</span>
-          </a>
-        </div>
+    <section class="portails-une">
+      <div class="conteneur titre-portails">
+        <p class="surtitre">Sarah J. Maas · le guide des fans</p>
+        <h1>Trois portes, <em>trois mondes</em></h1>
+        <p class="intro">Erilea, Prythian, Midgard. Choisissez un monde et franchissez son portail : livres, personnages, cartes et rappels vous attendent de l'autre côté.</p>
       </div>
+      <div class="portails">
+        <a class="portail tog" href="tog.html" data-univers="tog">
+          <span class="arche"><span class="scene-hote" data-scene="tog"></span><span class="lueur"></span><span class="reflet-verre"></span></span>
+          <span class="cle-voute" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c1.5 4.5 6 6 6 11a6 6 0 0 1-12 0c0-3 2.2-4.5 2.7-7.2 1.2 1.8.9 3.8 2.1 4.5.6-3 0-6 1.2-8.3z"/></svg></span>
+          <span class="texte-portail">
+            <span class="monde">Erilea</span>
+            <strong>Throne <span class="petit">of</span> Glass</strong>
+            <span class="devise">Une assassine, un trône de verre, un feu que rien n'éteint.</span>
+            <span class="franchir">Franchir le portail</span>
+          </span>
+        </a>
+        <a class="portail acotar" href="acotar.html" data-univers="acotar">
+          <span class="arche"><span class="scene-hote" data-scene="acotar"></span><span class="lueur"></span><span class="reflet-verre"></span></span>
+          <span class="cle-voute" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="10" r="4.5"/><path d="M12 5.5c-2 2-2 5 0 9M12 14.5V22M12 18c-2-1-4-1-5 0M12 19c2-1 4-1 5 0"/></g></svg></span>
+          <span class="texte-portail">
+            <span class="monde">Prythian</span>
+            <strong>A Court <span class="petit">of</span> Thorns <span class="petit">and</span> Roses</strong>
+            <span class="devise">Au-delà du Mur, les monstres portent des couronnes.</span>
+            <span class="franchir">Franchir le portail</span>
+          </span>
+        </a>
+        <a class="portail cc" href="cc.html" data-univers="cc">
+          <span class="arche"><span class="scene-hote" data-scene="cc"></span><span class="lueur"></span><span class="reflet-verre"></span></span>
+          <span class="cle-voute" aria-hidden="true"><svg viewBox="0 0 64 64"><path fill="currentColor" d="M40 6a26 26 0 1 0 18 44A22 22 0 1 1 40 6z"/></svg></span>
+          <span class="texte-portail">
+            <span class="monde">Midgard</span>
+            <strong>Crescent City</strong>
+            <span class="devise">Sous le croissant de lune, même les anges tombent.</span>
+            <span class="franchir">Franchir le portail</span>
+          </span>
+        </a>
+      </div>
+      <a class="vers-multivers" href="#multivers">Et ce qui relie les trois mondes <span aria-hidden="true">↓</span></a>
     </section>
 
-    <section class="section">
+    <section class="section multivers" id="multivers">
       <div class="conteneur">
         <div class="titre-section">
-          <p class="eyebrow">Deux façons d'entrer</p>
-          <h2>Par où commencer ?</h2>
-          <p>Les révélations sont toujours cachées : cliquez sur une zone <span class="spoiler">comme celle-ci</span> pour la lire.</p>
+          <p class="eyebrow">La quatrième porte</p>
+          <h2>Le Multivers</h2>
+          <p>Trois mondes, et des passages entre eux. Ici, tout ce qui traverse les sagas : la carte des mondes, leurs liens, et leur histoire commune. Les révélations restent cachées : cliquez sur une zone <span class="spoiler">comme celle-ci</span> pour la lire.</p>
         </div>
-        <div class="parcours">
-          <article class="chemin">
-            <span class="badge confirme">Sans spoiler</span>
-            <h3 style="margin-top:12px">Je découvre</h3>
-            <p>Vous n'avez pas encore lu, ou seulement une saga. Commencez ici.</p>
-            <ul>
-              <li><a href="sagas.html">Le pitch de chaque saga <span>Sagas</span></a></li>
-              <li><a href="sagas.html#ordre">Dans quel ordre lire les livres <span>Ordre de lecture</span></a></li>
-              <li><a href="cartes.html">Se repérer dans les mondes <span>Cartes</span></a></li>
-              <li><a href="glossaire.html">Comprendre le vocabulaire <span>Glossaire</span></a></li>
-            </ul>
-          </article>
-          <article class="chemin">
-            <span class="badge theorie">Spoilers masqués</span>
-            <h3 style="margin-top:12px">J'ai tout lu</h3>
-            <p>Vous connaissez les trois sagas et voulez creuser ce qui les relie.</p>
-            <ul>
-              <li><a href="liens.html">Les crossovers confirmés <span>Les liens</span></a></li>
-              <li><a href="liens.html#theories">Les théories des fans <span>Les liens</span></a></li>
-              <li><a href="chronologie.html#multivers">L'histoire du multivers <span>Chronologie</span></a></li>
-              <li><a href="quiz.html">Tester ses connaissances <span>Quiz</span></a></li>
-            </ul>
-          </article>
+        <div class="grille multivers-carte" id="zoneConstellation">
+          <div id="constellation"></div>
+          <div class="carte" id="infoMonde"><p class="meta">La carte du multivers</p><p>Chaque monde est une étoile. Trait plein : passage confirmé dans les livres. Pointillés : théorie. Cliquez sur un monde ou sur un lien.</p></div>
         </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="conteneur">
-        <div class="titre-section">
-          <p class="eyebrow">Le coffret</p>
-          <h2>Les trois sagas</h2>
-        </div>
-        <div class="coffret">
-          <a class="saga-carte tog" href="sagas.html#tog">
-            <div class="bandeau">
-              <svg class="motif" viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice"><path fill="currentColor" d="M100 10c10 30 40 40 40 75a40 40 0 0 1-80 0c0-20 15-30 18-48 8 12 6 25 14 30 4-20 0-40 8-57z"/></svg>
-              <h3>Throne <span class="petit">of</span> Glass</h3>
-              <span class="auteur-couv">SARAH J. MAAS</span>
-            </div>
-            <div class="corps">
-              <p class="meta">8 livres · terminée · Erilea</p>
-              <p>Une assassine de dix-huit ans, un tournoi pour devenir la Championne du roi, et un trône perdu. Fantasy épique, d'abord jeunesse puis de plus en plus adulte.</p>
-            </div>
-          </a>
-          <a class="saga-carte acotar" href="sagas.html#acotar">
-            <div class="bandeau">
-              <svg class="motif" viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="currentColor" stroke-width="3"><path d="M20 140c30-40 10-80 50-100s60 30 90 10 20-40 30-50"/><path d="M10 100c40 0 50-30 80-30s40 40 80 40"/><circle cx="60" cy="60" r="14"/><circle cx="140" cy="95" r="10"/></g></svg>
-              <h3>A Court <span class="petit">of</span><br>Thorns <span class="petit">and</span> Roses</h3>
-              <span class="auteur-couv">SARAH J. MAAS</span>
-            </div>
-            <div class="corps">
-              <p class="meta">5 livres + Valkyrie Cycle · en cours · Prythian</p>
-              <p>Une chasseuse humaine emmenée au-delà du Mur, chez les Fae. Romantasy adulte inspirée de <em>La Belle et la Bête</em> et de <em>Hadès et Perséphone</em>.</p>
-            </div>
-          </a>
-          <a class="saga-carte cc" href="sagas.html#cc">
-            <div class="bandeau">
-              <svg class="motif" viewBox="0 0 200 150" preserveAspectRatio="xMidYMid meet"><path fill="none" stroke="currentColor" stroke-width="4" d="M118 25a52 52 0 1 0 0 100a44 44 0 1 1 0-100z"/></svg>
-              <h3>Crescent<br>City</h3>
-              <span class="auteur-couv">SARAH J. MAAS</span>
-            </div>
-            <div class="corps">
-              <p class="meta">3 livres + 1 annoncé · en cours · Midgard</p>
-              <p>Une demi-Fae fêtarde, un ange déchu, et une enquête dans une ville moderne peuplée de Fae, d'anges et de loups. Urban fantasy adulte.</p>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="conteneur">
-        <div class="titre-section">
-          <p class="eyebrow">L'univers</p>
-          <h2>Explorer</h2>
-        </div>
-        <div class="tuiles">
-          <a class="tuile" href="cartes.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg><h3>Cartes</h3><p>Quatre cartes à explorer en zoomant.</p></a>
-          <a class="tuile" href="personnages.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg><h3>Personnages</h3><p>Fiches, relations et couples.</p></a>
-          <a class="tuile" href="chronologie.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18"/><circle cx="12" cy="7" r="2"/><circle cx="12" cy="17" r="2"/><path d="M14 7h6M4 17h6"/></svg><h3>Chronologie</h3><p>Les parutions et l'histoire des mondes.</p></a>
-          <a class="tuile" href="quiz.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><circle cx="12" cy="17.5" r=".6" fill="currentColor"/></svg><h3>Quiz</h3><p>Êtes-vous incollable sur les trois sagas ?</p></a>
+        <div class="tuiles multivers-tuiles">
+          <a class="tuile" href="liens.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="7" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="13" cy="18" r="2.5"/><path d="M7.4 6.8l9.1-.6M6.6 9l5 7M17.8 8.3l-3.6 7.4"/></svg><h3>Les liens</h3><p>Crossovers confirmés, échos et théories des fans.</p></a>
+          <a class="tuile" href="chronologie.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18"/><circle cx="12" cy="7" r="2"/><circle cx="12" cy="17" r="2"/><path d="M14 7h6M4 17h6"/></svg><h3>La chronologie</h3><p>Les parutions et l'histoire des trois mondes.</p></a>
+          <a class="tuile" href="sagas.html#ordre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h5v14H4zM10 5h4v14h-4zM15.5 6l3.8-1 2.7 13.6-3.8 1z"/></svg><h3>L'ordre de lecture</h3><p>Par où commencer, et quand passer d'un monde à l'autre.</p></a>
+          <a class="tuile" href="quiz.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><circle cx="12" cy="17.5" r=".6" fill="currentColor"/></svg><h3>Le grand quiz</h3><p>Les trois sagas mélangées, et leurs liens.</p></a>
         </div>
       </div>
     </section>
@@ -167,6 +95,7 @@
       </div>
     </section>
   </main>
+  <div class="passage" aria-hidden="true"></div>
 
   <script src="assets/js/data/livres.js"></script>
   <script src="assets/js/data/personnages.js"></script>
@@ -174,12 +103,8 @@
   <script src="assets/js/data/glossaire.js"></script>
   <script src="assets/js/data/fanarts.js"></script>
   <script src="assets/js/app.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      document.getElementById("nbPersos").textContent = MAAS.personnages.length;
-      document.getElementById("nbLivres").textContent = MAAS.livres.length;
-      if ((MAAS.fanarts.accueil || {}).image) document.getElementById("sectionFanart").hidden = false;
-    });
-  </script>
+  <script src="assets/js/scenes.js"></script>
+  <script src="assets/js/pages/liens.js"></script>
+  <script src="assets/js/pages/accueil.js"></script>
 </body>
 </html>
